@@ -1,0 +1,7 @@
+{
+  "name": "new-year",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
