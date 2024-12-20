@@ -24,27 +24,26 @@ onMounted(() => {
     // Create a timeline for the animation
     const tl = gsap.timeline();
 
-    // Add animations to the timeline
     tl.fromTo(logoRef.value, 
-      { opacity: 0, scale: 0.5, rotation: 0, y: 50 }, // Starting properties
+      { opacity: 0, scale: 0.5, rotation: 0, y: 50 },
       { 
         opacity: 1, 
         scale: 1, 
-        rotation: 360, // Full rotation
+        rotation: 360,
         y: 0, 
         duration: 1.5, 
         ease: "power2.out" 
       }
     )
     .to(logoRef.value, {
-      scale: 1.1, // Slightly scale up
+      scale: 1.1,
       duration: 0.5,
-      yoyo: true, // Reverse the animation
-      repeat: 1, // Repeat once
+      yoyo: true,
+      repeat: 1,
       ease: "power1.inOut"
     })
     .to(logoRef.value, {
-      rotation: 0, // Reset rotation
+      rotation: 0,
       duration: 0.5,
       ease: "power1.inOut"
     });
