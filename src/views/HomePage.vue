@@ -1,56 +1,78 @@
 <template>
-  <ion-page>
-    <ion-header :translucent="true">
-      <ion-toolbar>
-        <ion-title>Blank</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
-        </ion-toolbar>
-      </ion-header>
-
-      <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <ion-page class="black-background">
+    <ion-content :fullscreen="true" class="black-content">
+      <div class="logo-section ion-padding">
+        <img ref="logoRef" :src="logoSrc" alt="Hotwax Commerce Logo" class="logo" />
       </div>
+      <ion-item>
+        <h1>Wrapped</h1>
+      </ion-item>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { ref, onMounted } from 'vue';
+import { gsap } from 'gsap';
+import logo from '../images/True.png';
+
+const logoSrc = logo;
+const logoRef = ref(null);
+
+onMounted(() => {
+  if (logoRef.value) {
+    // Create a timeline for the animation
+    const tl = gsap.timeline();
+
+    // Add animations to the timeline
+    tl.fromTo(logoRef.value, 
+      { opacity: 0, scale: 0.5, rotation: 0, y: 50 }, // Starting properties
+      { 
+        opacity: 1, 
+        scale: 1, 
+        rotation: 360, // Full rotation
+        y: 0, 
+        duration: 1.5, 
+        ease: "power2.out" 
+      }
+    )
+    .to(logoRef.value, {
+      scale: 1.1, // Slightly scale up
+      duration: 0.5,
+      yoyo: true, // Reverse the animation
+      repeat: 1, // Repeat once
+      ease: "power1.inOut"
+    })
+    .to(logoRef.value, {
+      rotation: 0, // Reset rotation
+      duration: 0.5,
+      ease: "power1.inOut"
+    });
+  }
+});
 </script>
 
 <style scoped>
-#container {
+.black-background {
+  background-color: black;
+}
+
+ion-content {
+  --background: black;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.logo-section {
   text-align: center;
-  
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  
-  color: #8c8c8c;
-  
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
+.logo {
+  max-width: 80%;
+  padding-top: 100px;
+  height: 120px;
+  width: 400px;
 }
 </style>
